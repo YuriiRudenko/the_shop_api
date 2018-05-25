@@ -12,6 +12,7 @@ module TheShop
 
           desc "Create new category"
           post do
+            ::Category.insert(params.merge(created_at: Time.now, updated_at: Time.now))
             status 501
             {
               error: "Not Implemented"
@@ -21,6 +22,7 @@ module TheShop
           route_param :id, type: Integer do
             desc "Update new category"
             patch do
+              Category.first(id: params[:id]).update(params.except(:id))
               status 501
               {
                 error: "Not Implemented"
@@ -29,6 +31,7 @@ module TheShop
 
             desc "Delete a category"
             delete do
+              Category.first(id: params[:id]).delete
               status 501
               {
                 error: "Not Implemented"
